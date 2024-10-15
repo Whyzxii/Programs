@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
   string name;
-  cout<<"\n Good morning pal!, what is your name?";
+  cout<<"\n Good morning pal!, what is your name? ";
   cin>>name;
-  cout<<"Hi" + name + ", Welcome to C++ Programming Class.\n";
+  cout<<" Hi " + name + ", Welcome to C++ Programming Class.\n";
 }
