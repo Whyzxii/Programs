@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class Shape{
+    protected:
+    double lenght = 0, height = 0, base = 0;
+    double radius = base/2;
+    public:
+    void getDimension();
+};
+
+void Shape::getDimension(){
+    if(lenght >0){
+        cout<<"The lenght is "<<lenght<<endl;
+    }
+    if(base > 0){
+        cout<<"The base is "<<base<<endl;
+    }
+    if(height > 0){
+        cout<<"The height is "<<height<<endl;
+    }
+    if(radius> 0){
+        cout<<"The radius is "<<radius<<endl;
+    }
+}
+
+class Pyramid: public Shape{
+    public:
+    Pyramid(double b, double h);
+    void Pyramid_vol();
+};
+
+Pyramid::Pyramid(double b, double h){
+    base = b;
+    height = h;
+};
+
+void Pyramid::Pyramid_vol(){
+    double vol = 0;
+    vol = (base*height)/3;
+    cout<<"The volume of Pyramid is "<<vol<<endl;
+}
+
+int main(){
+    Pyramid smallPyra(2,4);
+    smallPyra.getDimension();
+    smallPyra.Pyramid_vol();
+    return 0;
+}
