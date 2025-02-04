@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+class shape{
+	protected:
+		double lenght, width, height;
+	public:
+		shape(double len, double wid, double hgt);//constructor
+		~shape();//deconstructor
+		void getDimension();
+};
+
+shape::shape(double len, double wid, double hgt){
+	cout<<"Initializing shape class"<<endl;
+	lenght = len;
+	width = wid;
+	height = hgt;
+};
+shape::~shape(void){
+	cout<<"Deleting class..."<<endl;
+};
+
+void shape::getDimension(){
+	cout<<"The lenght is "<<lenght<<endl;
+	cout<<"The width is "<<width<<endl;
+	cout<<"The height is "<<height<<endl;
+}
+
+int main(){
+	shape smallBox(1, 2, 5);
+	smallBox.getDimension();
+	return 0;
+}
