@@ -1,0 +1,66 @@
+#include<iostream>
+#include <cmath>
+using namespace std;
+
+class Shapes{
+	protected:
+		double length = 0, height = 0, base = 0;
+		double radius = base/2;
+		public:
+		void getDimension();
+};
+
+void Shapes::getDimension(){
+	if(length > 0){
+		cout << "The length is " << length << "\n";
+	}
+	if(height > 0){
+		cout << "The height is " << height << "\n";
+	}
+	if(base > 0){
+		cout << "The base is " << base << "\n";
+	}
+	if(radius > 0){
+		cout << "The radius is " << radius << "\n";
+	}
+};
+
+
+class Cone : public Shapes{
+	public:
+		Cone(double r, double h);
+		void Cone_Area();
+		void Cone_Vol();
+	
+};	
+
+Cone::Cone(double r, double h){
+    radius = r;
+    height = h;
+};
+
+void Cone::Cone_Vol(){
+	double Vol = 0;
+	Vol = 3.1415926*(radius*radius*height)/3;
+	cout << "The volume of Cone is " << Vol << "\n";
+};
+
+void Cone::Cone_Area(){
+    double pi, r_squared, h_squared, slantHeight, area;
+	pi = 3.1415926;
+	r_squared = pow(radius, 2);
+	h_squared = pow(height, 2);
+    slantHeight = sqrt(r_squared + h_squared);
+    area = pi * r_squared + pi * radius * slantHeight;
+  
+    cout << "The area of a Cone is " << area << "\n";
+};
+
+int main(){
+	Cone bigCone(5, 20);
+	bigCone.getDimension();
+	bigCone.Cone_Vol();
+	bigCone.Cone_Area();
+	
+	return 0;
+}
