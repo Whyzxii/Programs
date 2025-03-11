@@ -1,0 +1,27 @@
+using System;
+
+namespace HelloWorld {
+    class Program{
+        static void Main(string[] angs){
+            string test = "";
+            Console.WriteLine("Hello World");
+            test = Console.ReadLine();
+            Console.WriteLine(test);
+            //input a value for variable test
+            //test = Console.Realine();
+            //output the value of variable test
+            //Console.Writeline(test);
+            /*
+            int = stores integer without decimals
+            double = strokes floating point numbers with decimals
+            char = stores characters
+            string = stores test
+            boolean = stores two statement; true or false
+            */
+            //use const if you don't want others to overwrite a data from variable
+            const int mynumber = 15;
+            //mynumber = 15;
+            const bool boolean = true;
+        }
+    }
+}
