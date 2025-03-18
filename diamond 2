@@ -1,0 +1,38 @@
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Enter the number of asterisk limit: ");
+        int limit = int.Parse(Console.ReadLine());
+
+        // Upper half of the diamond
+        for (int i = 0; i < limit; i++)
+        {
+            for (int k = limit; k > i + 1; k--)
+            {
+                Console.Write(" ");
+            }
+            for (int j = 0; j < i + 1; j++)
+            {
+                Console.Write("*  "); // Double spacing
+            }
+            Console.WriteLine();
+        }
+
+        // Lower half of the diamond
+        for (int i = 0; i < limit - 1; i++)
+        {
+            for (int j = 0; j < i + 1; j++)
+            {
+                Console.Write(" ");
+            }
+            for (int k = limit - 1; k > i; k--)
+            {
+                Console.Write("*  "); // Double spacing
+            }
+            Console.WriteLine();
+        }
+    }
+}
