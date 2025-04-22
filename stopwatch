@@ -1,50 +1,57 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
-namespace SimpleStopwatch
+class EnhancedStopwatch
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
+        Stopwatch stopwatch = new Stopwatch();
+        List<TimeSpan> recordedTimes = new List<TimeSpan>();
+        bool isRunning = false;
+
+        Console.WriteLine("Press 's' to start/stop the stopwatch, 'r' to reset, and 'v' to view recorded times.");
+
+        while (true)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            string command = "";
+            var key = Console.ReadKey(true).Key;
 
-            Console.WriteLine("Simple Stopwatch");
-            Console.WriteLine("Commands: start, stop, reset, exit");
-
-            while (command != "exit")
+            if (key == ConsoleKey.S)
             {
-                Console.Write("Enter command: ");
-                command = Console.ReadLine().ToLower();
-
-                switch (command)
+                if (!isRunning)
                 {
-                    case "start":
-                        stopwatch.Start();
-                        Console.WriteLine("Stopwatch started.");
-                        break;
-
-                    case "stop":
-                        stopwatch.Stop();
-                        Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}");
-                        break;
-
-                    case "reset":
-                        stopwatch.Reset();
-                        Console.WriteLine("Stopwatch reset.");
-                        break;
-
-                    case "exit":
-                        Console.WriteLine("Exiting the stopwatch.");
-                        break;
-
-                    default:
-                        Console.WriteLine("Unknown command. Please try again.");
-                        break;
+                    stopwatch.Start();
+                    isRunning = true;
+                    Console.WriteLine("Stopwatch started.");
+                }
+                else
+                {
+                    stopwatch.Stop();
+                    TimeSpan elapsed = stopwatch.Elapsed;
+                    recordedTimes.Add(elapsed);
+                    Console.WriteLine($"Elapsed time recorded: {FormatTime(elapsed)}");
+                    stopwatch.Start(); // Automatically restart the stopwatch
+                }
+            }
+            else if (key == ConsoleKey.R)
+            {
+                stopwatch.Reset();
+                recordedTimes.Clear(); // Clear recorded times on reset
+                Console.WriteLine("Stopwatch reset.");
+            }
+            else if (key == ConsoleKey.V)
+            {
+                Console.WriteLine("Recorded Times:");
+                foreach (var time in recordedTimes)
+                {
+                    Console.WriteLine(FormatTime(time));
                 }
             }
         }
+    }
+
+    static string FormatTime(TimeSpan time)
+    {
+        return string.Format("{0:D2}:{1:D2}:{2:D2}", (int)time.TotalHours, time.Minutes, time.Seconds);
     }
 }
