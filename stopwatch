@@ -31,4 +31,20 @@ namespace SimpleStopwatch
                         Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}");
                         break;
 
-                    case "reset ⬤
+                    case "reset":
+                        stopwatch.Reset();
+                        Console.WriteLine("Stopwatch reset.");
+                        break;
+
+                    case "exit":
+                        Console.WriteLine("Exiting the stopwatch.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Unknown command. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+}
