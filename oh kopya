@@ -1,0 +1,48 @@
+using System;
+
+abstract class Shape
+{
+    public abstract double Area();
+}
+
+class Circle : Shape
+{
+    public double Radius { get; set; }
+
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    public override double Area()
+    {
+        return Math.PI * Radius * Radius;
+    }
+}
+
+class Square : Shape
+{
+    public double Side { get; set; }
+
+    public Square(double side)
+    {
+        Side = side;
+    }
+
+    public override double Area()
+    {
+        return Side * Side;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Shape myCircle = new Circle(5);
+        Shape mySquare = new Square(4);
+
+        Console.WriteLine("Area of Circle: " + myCircle.Area());
+        Console.WriteLine("Area of Square: " + mySquare.Area());
+    }
+}
