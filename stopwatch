@@ -1,0 +1,34 @@
+using System;
+using System.Diagnostics;
+using System.Threading;
+
+namespace SimpleStopwatch
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            string command = "";
+
+            Console.WriteLine("Simple Stopwatch");
+            Console.WriteLine("Commands: start, stop, reset, exit");
+
+            while (command != "exit")
+            {
+                Console.Write("Enter command: ");
+                command = Console.ReadLine().ToLower();
+
+                switch (command)
+                {
+                    case "start":
+                        stopwatch.Start();
+                        Console.WriteLine("Stopwatch started.");
+                        break;
+
+                    case "stop":
+                        stopwatch.Stop();
+                        Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}");
+                        break;
+
+                    case "reset ⬤
