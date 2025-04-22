@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
 
 class Shape
 {
-    public virtual double Area()
+    public virtual string Name => "Shape";
+    public virtual double Area => 0;
+    public virtual string Info => "";
+
+    public Shape()
     {
-        return 0; // Default implementation, can be overridden
+        Console.WriteLine($"{Name} created.");
     }
 }
 
@@ -15,12 +20,12 @@ class Circle : Shape
     public Circle(double radius)
     {
         Radius = radius;
+        Console.WriteLine($"Circle with radius {radius} created.");
     }
 
-    public override double Area()
-    {
-        return Math.PI * Radius * Radius;
-    }
+    public override string Name => "Circle";
+    public override double Area => Math.PI * Radius * Radius;
+    public override string Info => $"Radius: {Radius}";
 }
 
 class Square : Shape
@@ -30,22 +35,32 @@ class Square : Shape
     public Square(double side)
     {
         Side = side;
+        Console.WriteLine($"Square with side {side} created.");
     }
 
-    public override double Area()
-    {
-        return Side * Side;
-    }
+    public override string Name => "Square";
+    public override double Area => Side * Side;
+    public override string Info => $"Side: {Side}";
 }
 
 class Program
 {
     static void Main()
     {
-        Shape circle = new Circle(6);
-        Shape square = new Square(5);
+        Console.WriteLine("Creating shapes...\n");
 
-        Console.WriteLine("Area of Circle: " + circle.Area());
-        Console.WriteLine("Area of Square: " + square.Area());
+        List<Shape> shapes = new List<Shape>
+        {
+            new Circle(5),
+            new Square(6),
+            new Circle(3.5),
+            new Square(2.25)
+        };
+
+        Console.WriteLine("\nShape Details:\n");
+        foreach (var shape in shapes)
+        {
+            Console.WriteLine($"{shape.Name} | {shape.Info} | Area: {shape.Area:F2}");
+        }
     }
 }
