@@ -1,0 +1,132 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace To_do_List
+{
+    public partial class Form1 : Form
+    {
+        string savePath = "tasks.txt";
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            listViewTasks.View = View.Details;
+            listViewTasks.CheckBoxes = true;
+            listViewTasks.Columns.Clear();
+            listViewTasks.Columns.Add("Task", 200);
+            listViewTasks.Columns.Add("Due Date", 120);
+            listViewTasks.Columns.Add("Priority", 80);
+            listViewTasks.Columns.Add("Status", 80);
+            cmbPriority.Items.Clear();
+            cmbPriority.Items.Add("Low");
+            cmbPriority.Items.Add("Medium");
+            cmbPriority.Items.Add("High");
+            cmbPriority.SelectedIndex = 0;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listViewTasks.CheckedItems)
+            {
+                listViewTasks.Items.Remove(item);
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter writer = new StreamWriter(savePath))
+            {
+                foreach (ListViewItem item in listViewTasks.Items)
+                {
+                    string line = string.Join("|", item.Text, item.SubItems[1].Text, item.SubItems[2].Text, item.SubItems[3].Text, item.Checked);
+                    writer.WriteLine(line);
+                }
+            }
+            MessageBox.Show("Tasks saved.");
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(savePath)) return;
+            listViewTasks.Items.Clear();
+            foreach (var line in File.ReadAllLines(savePath))
+            {
+                var parts = line.Split('|');
+                if (parts.Length < 5) continue;
+                ListViewItem item = new ListViewItem(parts[0]);
+                item.SubItems.Add(parts[1]);
+                item.SubItems.Add(parts[2]);
+                item.SubItems.Add(parts[3]);
+                item.Checked = bool.Parse(parts[4]);
+                listViewTasks.Items.Add(item);
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTask.Text) || cmbPriority.SelectedItem == null)
+                return;
+            ListViewItem item = new ListViewItem(txtTask.Text);
+            item.SubItems.Add(dtpDueDate.Value.ToShortDateString());
+            item.SubItems.Add(cmbPriority.SelectedItem.ToString());
+            item.SubItems.Add("Not Done");
+            item.Checked = false;
+            listViewTasks.Items.Add(item);
+            txtTask.Clear();
+        }
+        private void listViewTask_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewTasks.SelectedItems.Count > 0)
+            {
+                ListViewItem item = listViewTasks.SelectedItems[0];
+                item.SubItems[3].Text = item.Checked ? "Done" : "Not Done";
+            }
+        }
+        private void cmbPriority_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (!File.Exists(savePath)) return;
+            listViewTasks.Items.Clear();
+            foreach (var line in File.ReadAllLines(savePath))
+            {
+                var parts = line.Split('|');
+                if (parts.Length < 5) continue;
+                ListViewItem item = new ListViewItem(parts[0]);
+                item.SubItems.Add(parts[1]);
+                item.SubItems.Add(parts[2]);
+                item.SubItems.Add(parts[3]);
+                item.Checked = bool.Parse(parts[4]);
+                listViewTasks.Items.Add(item);
+            }
+        }
+        private void txtTask_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTask.Text)) return;
+        }
+        private void btnMarkAsDone_Click(object sender, EventArgs e)
+        {
+            if (listViewTasks.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a task to mark as done.");
+                return;
+            }
+            foreach (ListViewItem item in listViewTasks.SelectedItems)
+            {
+                item.SubItems[3].Text = "Done";
+                item.Checked = true;
+            }
+        }
+        private void label2_Click(object sender, EventArgs e)
+        {
+        }
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+    }
+}
